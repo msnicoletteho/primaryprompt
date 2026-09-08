@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SgLDC Primary Prompt Studio - HTML Game, Deck & Dashboard Generator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Lexend & Inter for high primary-school legibility -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lexend', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                        },
+                        accent: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Lexend', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .modal-backdrop { background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-sky-500 to-indigo-600 text-white p-2.5 rounded-2xl shadow-md">
+                    <i class="fa-solid fa-shapes text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-700">
+                        SgLDC Primary Prompt Studio
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">Primary School HTML Games, Decks & Teacher Dashboard Prompt Generator</p>
+                </div>
+            </div>
+
+            <!-- Quick Info Badges & Guide Button -->
+            <div class="flex items-center gap-2 flex-wrap">
+                <button onclick="openGuideModal()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold px-3 py-1.5 rounded-full transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-chart-line text-indigo-600"></i> Teacher Dashboard Guide
+                </button>
+                <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full border border-amber-200 flex items-center gap-1.5">
+                    <i class="fa-solid fa-child font-bold"></i> P1 – P6 Tailored
+                </span>
+                <span class="bg-sky-100 text-sky-800 text-xs font-semibold px-3 py-1 rounded-full border border-sky-200 flex items-center gap-1.5">
+                    <i class="fa-solid fa-volume-high"></i> Audio & TTS
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Form Column (Left / 7 cols) -->
+        <section class="lg:col-span-7 space-y-6">
+
+            <!-- Presets Banner -->
+            <div class="bg-gradient-to-r from-sky-500 to-indigo-600 rounded-2xl p-4 text-white shadow-sm">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-sm font-semibold flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Quick Starter Presets
+                    </h2>
+                    <span class="text-xs text-sky-100">Click to auto-fill form</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                    <button onclick="loadPreset('p1_english')" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm p-2 rounded-xl text-left transition border border-white/10">
+                        <span class="font-bold block text-amber-300">P1 English</span>
+                        <span class="text-white/90">Sight Words + Audio</span>
+                    </button>
+                    <button onclick="loadPreset('p3_math')" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm p-2 rounded-xl text-left transition border border-white/10">
+                        <span class="font-bold block text-emerald-300">P3 Math</span>
+                        <span class="text-white/90">Fractions + Dashboard</span>
+                    </button>
+                    <button onclick="loadPreset('p4_science')" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm p-2 rounded-xl text-left transition border border-white/10">
+                        <span class="font-bold block text-sky-300">P4 Science</span>
+                        <span class="text-white/90">Digestive System Deck</span>
+                    </button>
+                    <button onclick="loadPreset('p2_mtl')" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm p-2 rounded-xl text-left transition border border-white/10">
+                        <span class="font-bold block text-pink-300">P2 MT Language</span>
+                        <span class="text-white/90">Audio Match & Memory</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 1: Grade Level & Subject -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
+                    <span class="bg-sky-100 text-sky-700 w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                    <h3 class="font-semibold text-slate-800">Target Learners & Subject</h3>
+                </div>
+
+                <!-- Primary Level Selection -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-2">Primary School Level</label>
+                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="level" value="Primary 1 (P1)" class="peer hidden" onchange="generatePrompt()">
+                            <div class="px-2 py-2 text-xs font-medium text-center rounded-xl border border-slate-200 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 hover:bg-slate-50 transition">P1 (7 y/o)</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="level" value="Primary 2 (P2)" class="peer hidden" onchange="generatePrompt()">
+                            <div class="px-2 py-2 text-xs font-medium text-center rounded-xl border border-slate-200 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 hover:bg-slate-50 transition">P2 (8 y/o)</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="level" value="Primary 3 (P3)" class="peer hidden" checked onchange="generatePrompt()">
+                            <div class="px-2 py-2 text-xs font-medium text-center rounded-xl border border-slate-200 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 hover:bg-slate-50 transition">P3 (9 y/o)</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="level" value="Primary 4 (P4)" class="peer hidden" onchange="generatePrompt()">
+                            <div class="px-2 py-2 text-xs font-medium text-center rounded-xl border border-slate-200 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 hover:bg-slate-50 transition">P4 (10 y/o)</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="level" value="Primary 5 (P5)" class="peer hidden" onchange="generatePrompt()">
+                            <div class="px-2 py-2 text-xs font-medium text-center rounded-xl border border-slate-200 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 hover:bg-slate-50 transition">P5 (11 y/o)</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="level" value="Primary 6 (P6)" class="peer hidden" onchange="generatePrompt()">
+                            <div class="px-2 py-2 text-xs font-medium text-center rounded-xl border border-slate-200 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 hover:bg-slate-50 transition">P6 (12 y/o)</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Subject Selection -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="subject" class="block text-xs font-semibold text-slate-600 mb-1">Subject</label>
+                        <select id="subject" onchange="generatePrompt()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="English Language">English Language</option>
+                            <option value="Mathematics" selected>Mathematics</option>
+                            <option value="Science">Science (P3 - P6)</option>
+                            <option value="Mother Tongue (Chinese)">Mother Tongue (Chinese)</option>
+                            <option value="Mother Tongue (Malay)">Mother Tongue (Malay)</option>
+                            <option value="Mother Tongue (Tamil)">Mother Tongue (Tamil)</option>
+                            <option value="Social Studies / CCE">Social Studies / CCE</option>
+                            <option value="PE / Art / Music">PE / Art / Music</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="topic" class="block text-xs font-semibold text-slate-600 mb-1">Topic / Unit Name</label>
+                        <input type="text" id="topic" value="Fractions & Equivalent Parts" oninput="generatePrompt()" placeholder="e.g. Multiplication Tables, Animals & Habitats" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Learning Objectives -->
+                <div>
+                    <label for="learningObjectives" class="block text-xs font-semibold text-slate-600 mb-1">Specific Learning Objectives / Key Concepts</label>
+                    <textarea id="learningObjectives" rows="2" oninput="generatePrompt()" placeholder="e.g. Identify numerator and denominator, compare simple fractions with visual models." class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">Identify numerator and denominator; recognize equivalent fractions through visual shading.</textarea>
+                </div>
+
+                <!-- Class Profile & Learner Needs -->
+                <div class="pt-2 border-t border-slate-100">
+                    <label for="classProfile" class="block text-xs font-semibold text-slate-600 mb-1">Class Profile & Learner Readiness</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+                        <select id="classProfilePreset" onchange="applyClassProfilePreset()" class="bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="Mixed Ability Class (Standard Primary)">👥 Mixed Ability (Standard Primary Class)</option>
+                            <option value="Foundation / Learning Support (Needs clear scaffolding & extra cues)">🧩 Foundation / Learning Support (Needs extra scaffolding)</option>
+                            <option value="High Readiness / GEP (Requires deeper extension & challenge)">🚀 High Readiness / GEP (Needs challenge & extensions)</option>
+                            <option value="EAL / English Language Learners (Needs strong visual & audio support)">🗣️ EAL / Non-Native English Learners (Audio/Visual heavy)</option>
+                            <option value="Short Attention Span / Tactile-Kinesthetic Learners">⚡ High Energy / Short Attention Span (Bite-sized, high feedback)</option>
+                            <option value="Custom">✏️ Custom Profile (Type details below)</option>
+                        </select>
+                        <input type="text" id="classProfileCustom" oninput="generatePrompt()" placeholder="e.g., 30 P3 students, 4 struggling readers, loves gamified rewards" class="bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Output Resource Package Selection (NEW) -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-sky-100 text-sky-700 w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                        <h3 class="font-semibold text-slate-800">Output Resource Type & Dashboard</h3>
+                    </div>
+                    <span class="text-xs text-sky-600 font-medium cursor-pointer hover:underline" onclick="openGuideModal()">
+                        <i class="fa-solid fa-circle-info"></i> How Dashboard Works
+                    </span>
+                </div>
+
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Select Output Components</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="resourceType" value="Practice Game Only" class="peer hidden" onchange="toggleDashboardOptions(); generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-0.5 flex items-center gap-1.5">
+                                🎮 Practice Game Only
+                            </div>
+                            <p class="text-[11px] text-slate-500">Interactive gamified activity for student practice.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="resourceType" value="Interactive Learning Deck" class="peer hidden" onchange="toggleDashboardOptions(); generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-0.5 flex items-center gap-1.5">
+                                📖 Learning Deck Only
+                            </div>
+                            <p class="text-[11px] text-slate-500">Slide-based lesson deck with embedded mini checks.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="resourceType" value="Teacher Analytics Dashboard Only" class="peer hidden" onchange="toggleDashboardOptions(); generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-0.5 flex items-center gap-1.5">
+                                📊 Teacher Dashboard Only
+                            </div>
+                            <p class="text-[11px] text-slate-500">Dedicated monitoring panel to view student scores & misconceptions.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="resourceType" value="All-in-One Integrated Package (Learning Deck + Practice Game + Teacher Dashboard)" class="peer hidden" checked onchange="toggleDashboardOptions(); generatePrompt()">
+                        <div class="p-3 border-2 border-indigo-200 rounded-xl peer-checked:border-indigo-600 peer-checked:bg-indigo-50/50 hover:bg-slate-50 transition">
+                            <div class="font-bold text-xs text-indigo-900 mb-0.5 flex items-center gap-1.5">
+                                🚀 All-in-One Complete Ecosystem
+                            </div>
+                            <p class="text-[11px] text-slate-600">Combines Learning Deck + Practice Game + Teacher Analytics Dashboard.</p>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Teacher Dashboard Specific Options -->
+                <div id="dashboardConfigPanel" class="pt-3 border-t border-slate-100 space-y-3 bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-100">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-bold text-indigo-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lock text-indigo-600"></i> Teacher Dashboard Access & Data Backend
+                        </label>
+                        <button onclick="openGuideModal()" class="text-[11px] text-indigo-700 bg-white px-2 py-0.5 rounded border border-indigo-200 hover:bg-indigo-50">
+                            Setup Guide <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div>
+                            <label for="dashboardBackend" class="block font-semibold text-slate-700 mb-1">Data Storage Method</label>
+                            <select id="dashboardBackend" onchange="generatePrompt()" class="w-full bg-white border border-slate-200 text-slate-700 rounded-xl p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                                <option value="Password-Protected Local Storage & CSV Export (Zero Setup)">🔒 Password Protected (Local Storage & CSV Export)</option>
+                                <option value="Google Sheets Apps Script API (Live Student Tracking)">🌐 Google Sheets Web App (Live Cross-Device Data)</option>
+                                <option value="Dual Mode (Local Storage + Google Sheets Endpoint)">⚡ Dual Mode (Local CSV + Google Sheets Sync)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="teacherPasscode" class="block font-semibold text-slate-700 mb-1">Default Teacher Passcode</label>
+                            <input type="text" id="teacherPasscode" value="teacher123" oninput="generatePrompt()" placeholder="e.g. 1234, sgldc2026" class="w-full bg-white border border-slate-200 text-slate-700 rounded-xl p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Primary Accessibility & Read-Aloud Options -->
+            <div class="bg-amber-50/60 p-5 rounded-2xl border border-amber-200/80 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-amber-200/60 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-amber-500 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                        <h3 class="font-semibold text-slate-800">Primary Accessibility & Read-Aloud Support</h3>
+                    </div>
+                    <span class="text-xs bg-amber-200 text-amber-900 font-medium px-2.5 py-0.5 rounded-full">Crucial for Young Learners</span>
+                </div>
+
+                <p class="text-xs text-slate-600">Many primary students (especially P1–P3 or struggling readers) need audio scaffolds and visual cues to learn independently.</p>
+
+                <!-- Audio Read-Aloud Options -->
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3 bg-white p-3 rounded-xl border border-amber-200">
+                        <input type="checkbox" id="audioTTS" checked onchange="generatePrompt()" class="mt-1 h-4 w-4 text-sky-600 rounded border-slate-300 focus:ring-sky-500">
+                        <label for="audioTTS" class="text-xs cursor-pointer">
+                            <span class="font-semibold text-slate-800 block mb-0.5">🔊 Web Speech Audio Read-Aloud (Text-to-Speech)</span>
+                            <span class="text-slate-500">Include a speaker button <i class="fa-solid fa-volume-high text-sky-600"></i> next to questions/instructions so students can hear text spoken aloud using standard browser speech synthesis.</span>
+                        </label>
+                    </div>
+
+                    <div class="flex items-start space-x-3 bg-white p-3 rounded-xl border border-amber-200">
+                        <input type="checkbox" id="audioAutoPlay" checked onchange="generatePrompt()" class="mt-1 h-4 w-4 text-sky-600 rounded border-slate-300 focus:ring-sky-500">
+                        <label for="audioAutoPlay" class="text-xs cursor-pointer">
+                            <span class="font-semibold text-slate-800 block mb-0.5">🎧 Auto-Read Questions on Slide Load</span>
+                            <span class="text-slate-500">Automatically read the main prompt/question aloud when a new question or card appears.</span>
+                        </label>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div class="flex items-center space-x-2 bg-white p-2.5 rounded-xl border border-slate-200">
+                            <input type="checkbox" id="largeText" checked onchange="generatePrompt()" class="h-4 w-4 text-sky-600 rounded border-slate-300">
+                            <label for="largeText" class="text-xs font-medium text-slate-700 cursor-pointer">🔤 Extra Large Font & High Contrast</label>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-white p-2.5 rounded-xl border border-slate-200">
+                            <input type="checkbox" id="visualIcons" checked onchange="generatePrompt()" class="h-4 w-4 text-sky-600 rounded border-slate-300">
+                            <label for="visualIcons" class="text-xs font-medium text-slate-700 cursor-pointer">🖼️ Emoji & SVG Visual Cues</label>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-white p-2.5 rounded-xl border border-slate-200">
+                            <input type="checkbox" id="simpleVocab" checked onchange="generatePrompt()" class="h-4 w-4 text-sky-600 rounded border-slate-300">
+                            <label for="simpleVocab" class="text-xs font-medium text-slate-700 cursor-pointer">💬 Bite-Sized, Simple Instructions</label>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-white p-2.5 rounded-xl border border-slate-200">
+                            <input type="checkbox" id="soundEffects" checked onchange="generatePrompt()" class="h-4 w-4 text-sky-600 rounded border-slate-300">
+                            <label for="soundEffects" class="text-xs font-medium text-slate-700 cursor-pointer">🎵 Web Audio FX (Correct/Wrong Chimes)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Primary Activity Game Format -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
+                    <span class="bg-sky-100 text-sky-700 w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+                    <h3 class="font-semibold text-slate-800">Primary-Friendly Activity Format</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label class="cursor-pointer sm:col-span-2">
+                        <input type="radio" name="gameType" value="Surprise Me! (AI Pick)" class="peer hidden" onchange="generatePrompt()">
+                        <div class="p-3 border-2 border-dashed border-indigo-300 rounded-xl peer-checked:border-indigo-600 peer-checked:bg-indigo-50/70 hover:bg-slate-50 transition bg-gradient-to-r from-indigo-50/50 to-purple-50/50">
+                            <div class="font-bold text-xs text-indigo-900 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-wand-magic-sparkles text-indigo-600 text-sm"></i> 🎲 Surprise Me! (Let AI choose the best game format)
+                            </div>
+                            <p class="text-[11px] text-slate-600">The AI will automatically pick the most engaging activity style suitable for this topic and primary level.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="gameType" value="Drag and Drop Categorization" class="peer hidden" checked onchange="generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-hand-pointer text-sky-600"></i> Drag & Drop Matching / Sorting
+                            </div>
+                            <p class="text-[11px] text-slate-500">Students drag text/pictures into target boxes or buckets.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="gameType" value="Interactive Flashcard Learning Deck" class="peer hidden" onchange="generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-layer-group text-sky-600"></i> Interactive Flashcard Deck
+                            </div>
+                            <p class="text-[11px] text-slate-500">Card flip with audio pronunciation, visual pictures, and mini check.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="gameType" value="Memory Card Match Game" class="peer hidden" onchange="generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-puzzle-piece text-sky-600"></i> Memory Card Flip & Match
+                            </div>
+                            <p class="text-[11px] text-slate-500">Flip cards to pair terms, numbers, or audio pronunciations.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="gameType" value="Catch & Collect Arcade Game" class="peer hidden" onchange="generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-basket-shopping text-sky-600"></i> Catch & Collect Items Game
+                            </div>
+                            <p class="text-[11px] text-slate-500">Move basket left/right to catch items that match the target rule.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="gameType" value="Interactive Manipulative Explorer" class="peer hidden" onchange="generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-cubes text-sky-600"></i> Visual Virtual Manipulative
+                            </div>
+                            <p class="text-[11px] text-slate-500">Clickable fraction bars, clock dials, or counting blocks.</p>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="gameType" value="Gamified Multiple Choice Quest" class="peer hidden" onchange="generatePrompt()">
+                        <div class="p-3 border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50/50 hover:bg-slate-50 transition">
+                            <div class="font-semibold text-xs text-slate-800 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-trophy text-sky-600"></i> Visual Story & Quiz Quest
+                            </div>
+                            <p class="text-[11px] text-slate-500">Bite-sized questions with star rewards and character badges.</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 5: Difficulty Levels & Progression -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
+                    <span class="bg-sky-100 text-sky-700 w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">5</span>
+                    <h3 class="font-semibold text-slate-800">Difficulty Levels & Progression</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- Enable Difficulty Levels -->
+                    <div>
+                        <label for="numLevels" class="block text-xs font-semibold text-slate-600 mb-1">Number of Difficulty Levels</label>
+                        <select id="numLevels" onchange="toggleDifficultyMode(); generatePrompt()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="1 Level (Single Level)">1 Level (Flat / Single Level)</option>
+                            <option value="2 Levels (Easy & Hard)" selected>2 Levels (Level 1: Practice, Level 2: Challenge)</option>
+                            <option value="3 Levels (Bronze, Silver, Gold)">3 Levels (Easy, Medium, Hard / Bronze, Silver, Gold)</option>
+                            <option value="4 Levels (Progressive Mastery)">4 Levels (Stepped Mastery Progression)</option>
+                        </select>
+                    </div>
+
+                    <!-- Difficulty Mode / Escalation -->
+                    <div id="difficultyTypeContainer">
+                        <label for="difficultyType" class="block text-xs font-semibold text-slate-600 mb-1">How Difficulty Increases</label>
+                        <select id="difficultyType" onchange="generatePrompt()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="More challenging questions & deeper concepts">🧠 Question Complexity (Harder questions & less visual hints)</option>
+                            <option value="Shorter timers & faster pace">⏱️ Timer & Speed (Faster countdowns / moving items)</option>
+                            <option value="Both question complexity and shorter timers">🔀 Combined (Harder questions + Shorter timers/Faster pace)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Motivation & Scaffolding -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
+                    <span class="bg-sky-100 text-sky-700 w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">6</span>
+                    <h3 class="font-semibold text-slate-800">Primary Motivation & Scaffolding</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="rewardSystem" class="block text-xs font-semibold text-slate-600 mb-1">Reward & Positive Reinforcement</label>
+                        <select id="rewardSystem" onchange="generatePrompt()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="Star Rating (1-3 Stars) & Confetti">⭐ 3-Star Rating + Confetti Celebration</option>
+                            <option value="Virtual Sticker Collection Unlocked">🎨 Virtual Digital Stickers Unlocked</option>
+                            <option value="Mascot High-Five Encouragement">🐶 Friendly Mascot High-Five & Praise</option>
+                            <option value="Progress Bar with Treasure Box">🏴‍☠️ Progress Bar ending with Treasure Box</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="feedbackMode" class="block text-xs font-semibold text-slate-600 mb-1">Error Scaffolding / Retry Mode</label>
+                        <select id="feedbackMode" onchange="generatePrompt()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="Unlimited retries with gentle visual hints">Unlimited retries with friendly hints</option>
+                            <option value="Show hint after 1 wrong attempt">Show audio hint after 1st mistake</option>
+                            <option value="Immediate explanation modal with emoji visuals">Immediate visual explanation modal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Theme / Visual Style -->
+                <div>
+                    <label for="themeStyle" class="block text-xs font-semibold text-slate-600 mb-1">Visual Theme / Aesthetic</label>
+                    <select id="themeStyle" onchange="generatePrompt()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                        <option value="Colorful, friendly, soft rounded UI with bright primary colors">Bright & Friendly Primary School Colors (Soft Rounded UI)</option>
+                        <option value="Jungle Exploration Theme with playful animal icons">Jungle Safari & Animal Badges</option>
+                        <option value="Space Adventure Theme with rockets and stars">Space Explorer & Planet Stars</option>
+                        <option value="Clean & Minimalist with pastel primary tones">Clean & Pastel (Low Cognitive Load)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Step 7: 6 Core Pedagogical Learning Design Components (NEW) -->
+            <div class="bg-indigo-50/60 p-5 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-indigo-200/60 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-indigo-600 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">7</span>
+                        <h3 class="font-semibold text-slate-800">6 Core Pedagogical Learning Design Components</h3>
+                    </div>
+                    <span class="text-xs bg-indigo-200 text-indigo-900 font-semibold px-2.5 py-0.5 rounded-full">Learning Design Engine</span>
+                </div>
+
+                <p class="text-xs text-slate-600">The generated AI prompt will enforce all 6 learning design principles to ensure high engagement, agency, and deep retention:</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <label class="flex items-start space-x-2 bg-white p-2.5 rounded-xl border border-indigo-100 cursor-pointer hover:bg-indigo-50/30 transition">
+                        <input type="checkbox" id="principleUrgency" checked onchange="generatePrompt()" class="mt-0.5 h-4 w-4 text-indigo-600 rounded border-slate-300">
+                        <div>
+                            <span class="font-semibold text-slate-800 block mb-0.5">1. ⏱️ Create Urgency</span>
+                            <span class="text-[11px] text-slate-500">Countdown timers, combo streak multipliers & time bonus stars.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start space-x-2 bg-white p-2.5 rounded-xl border border-indigo-100 cursor-pointer hover:bg-indigo-50/30 transition">
+                        <input type="checkbox" id="principleAgency" checked onchange="generatePrompt()" class="mt-0.5 h-4 w-4 text-indigo-600 rounded border-slate-300">
+                        <div>
+                            <span class="font-semibold text-slate-800 block mb-0.5">2. 🎮 Learner Agency</span>
+                            <span class="text-[11px] text-slate-500">Choice of difficulty, avatar & "Quick Revision Tips" before play.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start space-x-2 bg-white p-2.5 rounded-xl border border-indigo-100 cursor-pointer hover:bg-indigo-50/30 transition">
+                        <input type="checkbox" id="principleChallenge" checked onchange="generatePrompt()" class="mt-0.5 h-4 w-4 text-indigo-600 rounded border-slate-300">
+                        <div>
+                            <span class="font-semibold text-slate-800 block mb-0.5">3. 🎯 Pitch Challenge Just Right</span>
+                            <span class="text-[11px] text-slate-500">Scaffolded levels, adaptive hints & balanced progression.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start space-x-2 bg-white p-2.5 rounded-xl border border-indigo-100 cursor-pointer hover:bg-indigo-50/30 transition">
+                        <input type="checkbox" id="principleFeedback" checked onchange="generatePrompt()" class="mt-0.5 h-4 w-4 text-indigo-600 rounded border-slate-300">
+                        <div>
+                            <span class="font-semibold text-slate-800 block mb-0.5">4. ⚡ Immediate Feedback</span>
+                            <span class="text-[11px] text-slate-500">Audio/visual chimes & instant bite-sized explanations.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start space-x-2 bg-white p-2.5 rounded-xl border border-indigo-100 cursor-pointer hover:bg-indigo-50/30 transition">
+                        <input type="checkbox" id="principlePauses" checked onchange="generatePrompt()" class="mt-0.5 h-4 w-4 text-indigo-600 rounded border-slate-300">
+                        <div>
+                            <span class="font-semibold text-slate-800 block mb-0.5">5. 🧘 Intentional Pauses</span>
+                            <span class="text-[11px] text-slate-500">Reflection moments & mid-level summary cards to retain knowledge.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start space-x-2 bg-white p-2.5 rounded-xl border border-indigo-100 cursor-pointer hover:bg-indigo-50/30 transition">
+                        <input type="checkbox" id="principleProgress" checked onchange="generatePrompt()" class="mt-0.5 h-4 w-4 text-indigo-600 rounded border-slate-300">
+                        <div>
+                            <span class="font-semibold text-slate-800 block mb-0.5">6. 📈 Make Progress Visible</span>
+                            <span class="text-[11px] text-slate-500">Progress bar, star rating meter (⭐️⭐️⭐️) & level roadmap.</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Prompt Output Column (Right / 5 cols) -->
+        <section class="lg:col-span-5 flex flex-col space-y-4">
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex-1 flex flex-col sticky top-20">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-code text-sky-600 text-lg"></i>
+                        <h3 class="font-bold text-slate-800 text-sm">Generated AI Prompt</h3>
+                    </div>
+                    <span id="charCount" class="text-[11px] font-mono text-slate-400">0 chars</span>
+                </div>
+
+                <p class="text-xs text-slate-500 mt-3 mb-2">
+                    Copy and paste this prompt directly into <strong>Claude, ChatGPT, or Gemini</strong> to generate your single-file primary school HTML game or learning deck.
+                </p>
+
+                <!-- Prompt Text Area -->
+                <div class="relative flex-1 my-2">
+                    <textarea id="promptOutput" readonly class="w-full h-full min-h-[420px] p-3 text-xs font-mono bg-slate-900 text-slate-100 rounded-xl custom-scrollbar focus:outline-none resize-none leading-relaxed border border-slate-800"></textarea>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-2 pt-2">
+                    <button onclick="copyToClipboard()" class="flex-1 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-semibold py-2.5 px-4 rounded-xl text-xs transition shadow-md flex items-center justify-center gap-2 active:scale-[0.98]">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Copy Prompt</span>
+                    </button>
+                    <button onclick="generatePrompt()" title="Refresh Prompt" class="bg-slate-100 hover:bg-slate-200 text-slate-700 p-2.5 rounded-xl text-xs transition">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                </div>
+
+                <!-- Toast Notification -->
+                <div id="toast" class="hidden mt-2 bg-emerald-600 text-white text-xs font-medium py-2 px-3 rounded-xl text-center shadow-md animate-fade-in flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-circle-check"></i> Prompt copied to clipboard!
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Modal: Teacher Dashboard Setup & Implementation Guide -->
+    <div id="guideModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="p-4 bg-gradient-to-r from-indigo-600 to-sky-600 text-white flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-chalkboard-user text-lg"></i>
+                    <h3 class="font-bold text-sm">Teacher Dashboard Setup & SLS Embedding Guide</h3>
+                </div>
+                <button onclick="closeGuideModal()" class="text-white/80 hover:text-white p-1 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-5 overflow-y-auto space-y-4 custom-scrollbar text-xs leading-relaxed text-slate-700">
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-900">
+                    <p class="font-bold mb-1">💡 How Teacher Dashboards Work in Standalone HTML Apps</p>
+                    <p>When you generate an HTML game or deck with a Teacher Dashboard using AI, the generated single-file web app includes both the <strong>Student View</strong> and a <strong>Protected Teacher Analytics Panel</strong>.</p>
+                </div>
+
+                <!-- Method 1 -->
+                <div class="border border-slate-200 rounded-xl p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                            <span class="bg-sky-100 text-sky-800 w-5 h-5 rounded-full inline-flex items-center justify-center text-[11px]">1</span>
+                            Option A: Password-Protected Local Storage (Zero Setup Needed)
+                        </h4>
+                        <span class="bg-emerald-100 text-emerald-800 text-[10px] font-semibold px-2 py-0.5 rounded-full">Easiest for SLS</span>
+                    </div>
+                    <p class="text-slate-600">The app automatically saves student scores, completion status, and question attempt counts in the web browser's <code>localStorage</code>.</p>
+                    <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                        <li><strong>How Teacher Accesses:</strong> Click the 🔒 <strong>Teacher Mode</strong> button at the top right of the generated app and enter your passcode (default: <code>teacher123</code>).</li>
+                        <li><strong>Features:</strong> Class summary stats, misconception breakdown, list of student names, and an <strong>"Export Results to CSV"</strong> button to open in Excel/Google Sheets.</li>
+                    </ul>
+                </div>
+
+                <!-- Method 2 -->
+                <div class="border border-slate-200 rounded-xl p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                            <span class="bg-indigo-100 text-indigo-800 w-5 h-5 rounded-full inline-flex items-center justify-center text-[11px]">2</span>
+                            Option B: Google Sheets Web App Endpoint (Live Cross-Device Data)
+                        </h4>
+                        <span class="bg-indigo-100 text-indigo-800 text-[10px] font-semibold px-2 py-0.5 rounded-full">Live Analytics</span>
+                    </div>
+                    <p class="text-slate-600">Track scores across multiple student iPads or laptops in real-time into a single Google Sheet.</p>
+                    <ol class="list-decimal pl-5 space-y-1.5 text-slate-600">
+                        <li>Create a new Google Sheet. Go to <strong>Extensions &gt; Apps Script</strong>.</li>
+                        <li>Paste this lightweight Google Apps Script:
+                            <pre class="bg-slate-900 text-emerald-400 p-2.5 rounded-lg text-[10px] font-mono mt-1 overflow-x-auto select-all">
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([new Date(), data.studentName, data.score, data.maxScore, data.timeTaken, data.misconceptions]);
+  return ContentService.createTextOutput("Success");
+}</pre>
+                        </li>
+                        <li>Click <strong>Deploy &gt; New deployment &gt; Select type: Web app</strong>.</li>
+                        <li>Set <i>Execute as: Me</i> and <i>Who has access: Anyone</i>.</li>
+                        <li>Copy the Web App URL and paste it into the prompt or directly in the generated HTML code.</li>
+                    </ol>
+                </div>
+
+                <!-- Method 3 -->
+                <div class="border border-slate-200 rounded-xl p-4 space-y-2 bg-amber-50/50">
+                    <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-cloud-arrow-up text-amber-600"></i>
+                        Embedding into Singapore Student Learning Space (SLS)
+                    </h4>
+                    <p class="text-slate-600">1. Save the generated prompt code into a file named <code>index.html</code>.</p>
+                    <p class="text-slate-600">2. Zip the file into <code>activity.zip</code>.</p>
+                    <p class="text-slate-600">3. In SLS, add a <strong>HTML5 Component</strong> and upload the zip file. The audio read-aloud and dashboard will function seamlessly inside SLS!</p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-3 bg-slate-100 border-t border-slate-200 flex justify-end">
+                <button onclick="closeGuideModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl text-xs transition">
+                    Got it, Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Designed for Singapore Primary School Teachers | Inspired by SgLDC (Singapore Learning Designers Community)</p>
+            <p class="text-[11px] text-slate-400 mt-1">Generates clean, single-file HTML5 resources compliant with modern web speech & dashboard standards.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Preset Definitions tailored for Primary School
+        const presets = {
+            p1_english: {
+                level: "Primary 1 (P1)",
+                subject: "English Language",
+                topic: "Sight Words & Simple Sentences",
+                objectives: "Recognize common P1 sight words (the, put, like, jump) and match them with spoken audio and visual illustrations.",
+                resourceType: "All-in-One Integrated Package (Learning Deck + Practice Game + Teacher Dashboard)",
+                gameType: "Drag and Drop Categorization",
+                audioTTS: true,
+                audioAutoPlay: true,
+                largeText: true,
+                visualIcons: true,
+                simpleVocab: true,
+                soundEffects: true,
+                numLevels: "2 Levels (Easy & Hard)",
+                difficultyType: "More challenging questions & deeper concepts",
+                classProfilePreset: "EAL / English Language Learners (Needs strong visual & audio support)",
+                classProfileCustom: "",
+                rewardSystem: "Star Rating (1-3 Stars) & Confetti",
+                feedbackMode: "Unlimited retries with gentle visual hints",
+                themeStyle: "Colorful, friendly, soft rounded UI with bright primary colors"
+            },
+            p3_math: {
+                level: "Primary 3 (P3)",
+                subject: "Mathematics",
+                topic: "Fractions & Equivalent Fractions",
+                objectives: "Understand numerators and denominators; visually shade and compare equivalent fractions.",
+                resourceType: "All-in-One Integrated Package (Learning Deck + Practice Game + Teacher Dashboard)",
+                gameType: "Interactive Manipulative Explorer",
+                audioTTS: true,
+                audioAutoPlay: false,
+                largeText: true,
+                visualIcons: true,
+                simpleVocab: true,
+                soundEffects: true,
+                numLevels: "2 Levels (Easy & Hard)",
+                difficultyType: "Both question complexity and shorter timers",
+                classProfilePreset: "Mixed Ability Class (Standard Primary)",
+                classProfileCustom: "",
+                rewardSystem: "Progress Bar with Treasure Box",
+                feedbackMode: "Show hint after 1 wrong attempt",
+                themeStyle: "Colorful, friendly, soft rounded UI with bright primary colors"
+            },
+            p4_science: {
+                level: "Primary 4 (P4)",
+                subject: "Science",
+                topic: "Human Digestive System",
+                objectives: "Identify the functions of mouth, gullet, stomach, small intestine, and large intestine in sequence.",
+                resourceType: "Interactive Learning Deck",
+                gameType: "Surprise Me! (AI Pick)",
+                audioTTS: true,
+                audioAutoPlay: false,
+                largeText: true,
+                visualIcons: true,
+                simpleVocab: true,
+                soundEffects: true,
+                numLevels: "3 Levels (Bronze, Silver, Gold)",
+                difficultyType: "More challenging questions & deeper concepts",
+                classProfilePreset: "Mixed Ability Class (Standard Primary)",
+                classProfileCustom: "",
+                rewardSystem: "Virtual Sticker Collection Unlocked",
+                feedbackMode: "Immediate explanation modal with emoji visuals",
+                themeStyle: "Clean & Minimalist with pastel primary tones"
+            },
+            p2_mtl: {
+                level: "Primary 2 (P2)",
+                subject: "Mother Tongue (Chinese)",
+                topic: "Vocabulary & Audio Match (词语与语音)",
+                objectives: "Match Chinese vocabulary words with their correct audio pronunciation and picture cards.",
+                resourceType: "Practice Game Only",
+                gameType: "Memory Card Match Game",
+                audioTTS: true,
+                audioAutoPlay: true,
+                largeText: true,
+                visualIcons: true,
+                simpleVocab: true,
+                soundEffects: true,
+                numLevels: "2 Levels (Easy & Hard)",
+                difficultyType: "Shorter timers & faster pace",
+                classProfilePreset: "Foundation / Learning Support (Needs clear scaffolding & extra cues)",
+                classProfileCustom: "",
+                rewardSystem: "Mascot High-Five Encouragement",
+                feedbackMode: "Unlimited retries with gentle visual hints",
+                themeStyle: "Jungle Exploration Theme with playful animal icons"
+            }
+        };
+
+        function openGuideModal() {
+            document.getElementById('guideModal').classList.remove('hidden');
+        }
+
+        function closeGuideModal() {
+            document.getElementById('guideModal').classList.add('hidden');
+        }
+
+        function toggleDashboardOptions() {
+            const selectedResource = document.querySelector('input[name="resourceType"]:checked')?.value || '';
+            const panel = document.getElementById('dashboardConfigPanel');
+            if (selectedResource.includes('Dashboard') || selectedResource.includes('All-in-One')) {
+                panel.style.display = 'block';
+            } else {
+                panel.style.display = 'none';
+            }
+        }
+
+        function applyClassProfilePreset() {
+            const select = document.getElementById('classProfilePreset');
+            const customInput = document.getElementById('classProfileCustom');
+            if (select.value === 'Custom') {
+                customInput.value = '';
+                customInput.focus();
+            } else {
+                customInput.value = select.value;
+            }
+            generatePrompt();
+        }
+
+        function toggleDifficultyMode() {
+            const numLevels = document.getElementById('numLevels').value;
+            const container = document.getElementById('difficultyTypeContainer');
+            if (numLevels.startsWith('1 Level')) {
+                container.style.opacity = '0.5';
+                container.style.pointerEvents = 'none';
+            } else {
+                container.style.opacity = '1';
+                container.style.pointerEvents = 'auto';
+            }
+        }
+
+        function loadPreset(key) {
+            const data = presets[key];
+            if (!data) return;
+
+            // Set Level radio
+            const levelRadios = document.getElementsByName('level');
+            levelRadios.forEach(radio => {
+                radio.checked = (radio.value === data.level);
+            });
+
+            // Set Resource Type radio
+            const resourceRadios = document.getElementsByName('resourceType');
+            resourceRadios.forEach(radio => {
+                radio.checked = (radio.value === data.resourceType);
+            });
+
+            // Set Selects and Inputs
+            document.getElementById('subject').value = data.subject;
+            document.getElementById('topic').value = data.topic;
+            document.getElementById('learningObjectives').value = data.objectives;
+
+            // Set Class Profile
+            document.getElementById('classProfilePreset').value = data.classProfilePreset || 'Mixed Ability Class (Standard Primary)';
+            document.getElementById('classProfileCustom').value = data.classProfileCustom || (data.classProfilePreset || '');
+
+            // Set Game Type radio
+            const gameRadios = document.getElementsByName('gameType');
+            gameRadios.forEach(radio => {
+                radio.checked = (radio.value === data.gameType);
+            });
+
+            // Set Difficulty
+            document.getElementById('numLevels').value = data.numLevels || "2 Levels (Easy & Hard)";
+            document.getElementById('difficultyType').value = data.difficultyType || "More challenging questions & deeper concepts";
+            toggleDifficultyMode();
+
+            // Set Checkboxes
+            document.getElementById('audioTTS').checked = data.audioTTS;
+            document.getElementById('audioAutoPlay').checked = data.audioAutoPlay;
+            document.getElementById('largeText').checked = data.largeText;
+            document.getElementById('visualIcons').checked = data.visualIcons;
+            document.getElementById('simpleVocab').checked = data.simpleVocab;
+            document.getElementById('soundEffects').checked = data.soundEffects;
+
+            // Set Mechanics
+            document.getElementById('rewardSystem').value = data.rewardSystem;
+            document.getElementById('feedbackMode').value = data.feedbackMode;
+            document.getElementById('themeStyle').value = data.themeStyle;
+
+            toggleDashboardOptions();
+            generatePrompt();
+        }
+
+        function generatePrompt() {
+            // Get selected level
+            const level = document.querySelector('input[name="level"]:checked')?.value || 'Primary 3 (P3)';
+            const subject = document.getElementById('subject').value;
+            const topic = document.getElementById('topic').value || 'Core Concepts';
+            const objectives = document.getElementById('learningObjectives').value || 'Grasp primary subject concepts.';
+
+            // Resource Type
+            const resourceType = document.querySelector('input[name="resourceType"]:checked')?.value || 'All-in-One Integrated Package (Learning Deck + Practice Game + Teacher Dashboard)';
+            const includeDashboard = resourceType.includes('Dashboard') || resourceType.includes('All-in-One');
+            const dashboardBackend = document.getElementById('dashboardBackend').value;
+            const teacherPasscode = document.getElementById('teacherPasscode').value || 'teacher123';
+
+            // Class Profile
+            const classProfileCustom = document.getElementById('classProfileCustom').value;
+            const classProfilePreset = document.getElementById('classProfilePreset').value;
+            const classProfile = classProfileCustom.trim() !== '' ? classProfileCustom : classProfilePreset;
+
+            // Get selected activity type
+            const selectedGame = document.querySelector('input[name="gameType"]:checked')?.value || 'Surprise Me! (AI Pick)';
+            const isSurprise = selectedGame.includes('Surprise Me!');
+
+            // Difficulty levels
+            const numLevels = document.getElementById('numLevels').value;
+            const difficultyType = document.getElementById('difficultyType').value;
+            const isSingleLevel = numLevels.startsWith('1 Level');
+
+            // Get Accessibility Options
+            const audioTTS = document.getElementById('audioTTS').checked;
+            const audioAutoPlay = document.getElementById('audioAutoPlay').checked;
+            const largeText = document.getElementById('largeText').checked;
+            const visualIcons = document.getElementById('visualIcons').checked;
+            const simpleVocab = document.getElementById('simpleVocab').checked;
+            const soundEffects = document.getElementById('soundEffects').checked;
+
+            // Mechanics
+            const rewardSystem = document.getElementById('rewardSystem').value;
+            const feedbackMode = document.getElementById('feedbackMode').value;
+            const themeStyle = document.getElementById('themeStyle').value;
+
+            // 6 Core Pedagogical Principles
+            const principleUrgency = document.getElementById('principleUrgency')?.checked ?? true;
+            const principleAgency = document.getElementById('principleAgency')?.checked ?? true;
+            const principleChallenge = document.getElementById('principleChallenge')?.checked ?? true;
+            const principleFeedback = document.getElementById('principleFeedback')?.checked ?? true;
+            const principlePauses = document.getElementById('principlePauses')?.checked ?? true;
+            const principleProgress = document.getElementById('principleProgress')?.checked ?? true;
+
+            // Construct System Prompt for AI
+            let prompt = `You are an expert Educational Web Developer & Pedagogical Designer specializing in Singapore Primary School Education (${level}).
+
+Create a COMPLETE, STANDALONE, SINGLE-FILE HTML5 interactive learning resource tailored for ${level} students.
+
+### 🎯 TARGET AUDIENCE & CLASS PROFILE
+- **Level**: ${level} (Singapore Primary Curriculum)
+- **Subject**: ${subject}
+- **Topic**: ${topic}
+- **Learning Objectives**: ${objectives}
+- **Class Profile / Learner Readiness**: ${classProfile}
+
+### 📦 RESOURCE OUTPUT FORMAT
+- **Package Mode**: ${resourceType}
+${resourceType.includes('Learning Deck') || resourceType.includes('All-in-One') ? `- **Learning Deck Section**: Include interactive slide-based explanation decks with visual graphics, short concept summaries, and quick check questions before moving to practice.` : ''}
+${resourceType.includes('Game') || resourceType.includes('All-in-One') ? `- **Practice Game Section**: Interactive primary-friendly game activity.` : ''}
+
+### 🎮 ACTIVITY FORMAT & DIFFICULTY STRUCTURE
+- **Activity Format**: ${isSurprise ? '🎲 AI SURPRISE FORMAT — Analyze the topic and level, then pick or combine the most engaging primary-friendly interactive game format (e.g. Drag & Drop, Catch/Collect arcade, Memory match, Virtual Manipulatives, or Story Quest).' : selectedGame}
+- **Difficulty Structure**: ${numLevels}
+${!isSingleLevel ? `- **Difficulty Progression Mechanism**: Scale difficulty across levels using **${difficultyType}** (e.g. Level 1 introduces core foundational concepts/slower pace; higher levels introduce trickier distractors, advanced questions, or faster timed challenges).` : '- **Difficulty Progression**: Single flat difficulty level with consistent pacing.'}
+
+${includeDashboard ? `### 📊 TEACHER ANALYTICS DASHBOARD REQUIREMENTS
+- **Teacher Access**: Include a password-protected Teacher Login / Dashboard button at the top right of the interface.
+- **Passcode**: Default teacher passcode is \`${teacherPasscode}\`.
+- **Dashboard Backend Implementation**: ${dashboardBackend}.
+- **Dashboard Features**:
+  1. Class performance summary (Total attempts, average score, pass rate).
+  2. Question Item / Misconception analysis (Highlights which concepts students missed most).
+  3. Student attempt history table (Name/ID, score, time taken, completion date).
+  4. "Export Class Results to CSV" button so teachers can download results directly.
+  ${dashboardBackend.includes('Google Sheets') ? '5. Include a clean JS fetch/POST call function sending student submission JSON payloads to a configurable Google Apps Script Web App URL endpoint.' : ''}` : ''}
+
+### 🔊 PRIMARY SCHOOL ACCESSIBILITY & AUDIO READ-ALOUD REQUIREMENTS
+${audioTTS ? `- **Text-to-Speech (Audio Read-Aloud)**: Integrate the Web Speech API (window.speechSynthesis). Add prominent speaker buttons (🔊) beside questions, instructions, and target vocabulary so students can click to hear text read aloud cleanly.` : ''}
+${audioAutoPlay ? `- **Auto Read-Aloud**: Automatically trigger TTS audio to read out the question prompt whenever a new question or slide opens.` : ''}
+${largeText ? `- **Font & Readability**: Use large, friendly typography (minimum 18px body font, Lexend/Inter font, high contrast) suitable for primary children.` : ''}
+${visualIcons ? `- **Visual Cues**: Use inline SVGs or Emojis alongside text items so non-readers/struggling readers can understand through visual association.` : ''}
+${simpleVocab ? `- **Child-Friendly Language**: Keep prompt instructions short, clear, and bite-sized (e.g. "Tap the right answer!", "Drag into the box!").` : ''}
+${soundEffects ? `- **Audio Feedback**: Implement Web Audio API synthesizers (or short sound frequencies) for pleasant 'correct answer' chimes and gentle 'try again' tones.` : ''}
+
+### 🎨 REWARDS & SCAFFOLDING
+- **Reward System**: ${rewardSystem}. Include confetti effects using canvas or CSS when completing the activity or levelling up.
+- **Feedback & Retries**: ${feedbackMode}. Ensure feedback is encouraging and non-punitive.
+- **Visual Aesthetic**: ${themeStyle}. Soft rounded corners (rounded-2xl), gentle shadows, colorful buttons with touch/click scale effects.
+
+### 🧠 6 CORE PEDAGOGICAL LEARNING DESIGN PRINCIPLES (MUST BE IMPLEMENTED)
+The generated web app MUST explicitly embed these 6 learning design principles into its gameplay and UI structure:
+${principleUrgency ? `1. ⏱️ CREATE URGENCY: Use countdown timers, streak multipliers, time bonus stars, or story stakes (e.g., "Solve before time runs out!") to build excitement and focus.` : ''}
+${principleAgency ? `2. 🎮 GIVE LEARNER AGENCY: Offer small meaningful choices prior to and during play (e.g., choose difficulty level, pick an avatar/mascot, or review a "Quick Revision Tips / Cheat Sheet" button before playing).` : ''}
+${principleChallenge ? `3. 🎯 PITCH CHALLENGE JUST RIGHT: Scaffold difficulty progressively; start with accessible questions, offer step-by-step hints after errors, and keep students in their Zone of Proximal Development.` : ''}
+${principleFeedback ? `4. ⚡ IMMEDIATE FEEDBACK: Provide instant auditory (chimes/gentle tones) and visual feedback on every response, accompanied by a bite-sized explanation modal on correct/incorrect answers.` : ''}
+${principlePauses ? `5. 🧘 INTENTIONAL PAUSES TO PROCESS & REFLECT: Integrate structured pause moments between stages or levels (e.g., "Pause & Reflect" summary card asking a key reflection question) to lock in understanding before proceeding.` : ''}
+${principleProgress ? `6. 📈 MAKE PROGRESS VISIBLE: Display clear, continuous visual progress indicators (e.g., animated progress bar, level completion map, star rating meter ⭐️⭐️⭐️, badge unlocks, and overall score).` : ''}
+
+### 🛠️ TECHNICAL CONSTRAINTS
+1. **Single File**: The entire output MUST be in ONE single HTML file containing HTML, inline CSS (or Tailwind CDN), and JavaScript.
+2. **CDN Imports**: Include Tailwind CSS CDN (<script src="https://cdn.tailwindcss.com"></script>) and FontAwesome icons CDN.
+3. **No External Assets**: Use CSS styling, Emojis, or inline SVGs. Do NOT use broken external image URLs.
+4. **Touch & Tablet Friendly**: Make all touch targets large (minimum 48x48px) for iPad/tablet touch usage in primary classrooms.
+5. **No Alert Windows**: Do NOT use native browser alert() or confirm() dialogs. Use embedded popups/modals.
+
+Please write the complete, clean, production-ready single HTML code inside a single code block.`;
+
+            // Update text area & char count
+            const outputArea = document.getElementById('promptOutput');
+            outputArea.value = prompt;
+            document.getElementById('charCount').innerText = `${prompt.length} chars`;
+        }
+
+        // Copy to clipboard helper
+        function copyToClipboard() {
+            const promptText = document.getElementById('promptOutput').value;
+            
+            // Standard fallback copy method for iframe compatibility
+            const tempInput = document.createElement('textarea');
+            tempInput.value = promptText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Show Toast
+            const toast = document.getElementById('toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            applyClassProfilePreset();
+            toggleDifficultyMode();
+            toggleDashboardOptions();
+            generatePrompt();
+        };
+    </script>
+</body>
+</html>
